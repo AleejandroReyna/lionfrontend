@@ -1,7 +1,7 @@
 import { Breed } from '../services/breed.interface'
 import { SET_FAVORITE_BREED } from '../actions'
 
-const initialState:undefined | Breed = undefined
+const initialState:Breed | undefined | null = null
 
 interface Action {
   type: string,

@@ -1,7 +1,7 @@
 import { User } from '../services/user.interface'
 import { SET_USER, CLEAR_USER } from '../actions'
 
-const initialState:undefined | User = undefined
+const initialState:User | undefined | null = null
 
 interface Action {
   type: string,
@@ -13,7 +13,7 @@ export function user(state = initialState, action:Action) {
     case SET_USER:
       return {...action.user}
     case CLEAR_USER:
-      return undefined
+      return null
     default:
       return state
   }

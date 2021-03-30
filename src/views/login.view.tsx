@@ -6,6 +6,7 @@ import { setUser } from '../actions'
 import { loginService } from '../services/login.service'
 import { Error } from '../services/errors.interface'
 import { useHistory } from 'react-router-dom'
+import {Card, Container, Row, Col, Form, FormGroup, FormControl, Button} from 'react-bootstrap'
 
 interface LoginProps {
   logUser(user: User): void,
@@ -52,25 +53,38 @@ const Login : React.FC<LoginProps> = ( {user, logUser}:LoginProps) => {
           )}
         </ul>
       }
-      <div>Login</div>
-      <input 
-        type="text"
-        value={username}
-        placeholder="username"
-        disabled={submitting}
-        onChange={e => setUsername(e.target.value)} />
-      <br/>
-      <input 
-        type="password"
-        value={password}
-        placeholder="password"
-        disabled={submitting}
-        onChange={e => setPassword(e.target.value)} />
-      <br/>
-      <button onClick={submit} disabled={!username || !password || submitting}>Login</button>
-      {user &&
-        <span>{user.username}</span>
-      }
+      <Container>
+        <Row className="justify-content-center">
+          <Col xs={12} sm={10} md={8} lg={6}>
+            <Card>
+              <Card.Header className="text-center">
+                  Login
+              </Card.Header>
+              <Card.Body>
+                <Form>
+                  <FormGroup>
+                    <label htmlFor="username">Username: </label>
+                    <FormControl 
+                          type="text" 
+                          value={username} 
+                          onChange={e => setUsername(e.target.value)}
+                          disabled={submitting} />
+                  </FormGroup>
+                  <FormGroup>
+                    <label htmlFor="password">Password: </label>
+                    <FormControl 
+                          type="password" 
+                          value={password} 
+                          onChange={e => setPassword(e.target.value)}
+                          disabled={submitting} />
+                  </FormGroup>
+                  <Button onClick={submit} disabled={!username || !password || submitting}>Login</Button>
+                </Form>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
     </>
   )
 }

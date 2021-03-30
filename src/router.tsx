@@ -8,6 +8,7 @@ import { DashboardScreen } from './views/dashboard.view'
 import { LoginScreen } from './views/login.view'
 import { SignupScreen } from './views/singup.view'
 import { PrivateRoute } from './components/privateRoute'
+import { OnlyPublicRoute } from './components/onlyPublicRoute'
 
 export const AppRouter = () => (
   <>
@@ -18,12 +19,12 @@ export const AppRouter = () => (
       <li><Link to="/signup/">Sign Up</Link></li>
     </ul>
     <Switch>
-      <Route path="/signup/">
+      <OnlyPublicRoute path="/signup/">
         <SignupScreen />
-      </Route>
-      <Route path="/login/">
+      </OnlyPublicRoute>
+      <OnlyPublicRoute path="/login/">
         <LoginScreen />
-      </Route>
+      </OnlyPublicRoute>
       <PrivateRoute path="/">
         <DashboardScreen />
       </PrivateRoute>

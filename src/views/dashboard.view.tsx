@@ -4,6 +4,8 @@ import { Dispatch } from 'redux'
 import { setBreeds} from '../actions'
 import { connect } from 'react-redux'
 import { getBreedsService } from '../services/getBreeds.service'
+import {Container, Row, Col} from 'react-bootstrap'
+import { DashboardSidebar } from '../components/dashboardSidebar'
 
 interface State {
   breeds: Breed[] | null | undefined,
@@ -34,26 +36,13 @@ const Dashboard:FC<DashboardProps> = ({insertBreeds, breeds, favoriteBreed }:Das
     setLoading(false)
   }, [loading])
   return (
-    <>
-    <div>Dashboard</div>
-      {loading ?
-        <span>loading</span>
-        :
-        <ul>
-        {breeds?.map(breed => 
-          <li key={breed.name}>{breed.name}
-            {breed?.subBreeds &&
-              <ul key={`subs-${breed.name}`}>
-                {breed?.subBreeds?.map(sub =>
-                  <li key={sub.name} >{sub.name}</li>
-                )}
-              </ul>
-            }
-          </li>
-        )}
-        </ul>
-      }
-    </>
+    <Container fluid>
+      <Row>
+        <Col xs={4}>
+          <DashboardSidebar />
+        </Col>
+      </Row>
+    </Container>
   )
 }
 

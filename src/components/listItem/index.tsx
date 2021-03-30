@@ -3,13 +3,17 @@ import { ListGroupItem, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { Breed } from '../../services/breed.interface'
 import {EyeFill, StarFill, ArrowRight } from 'react-bootstrap-icons'
+import { setSelectedBreed } from '../../actions'
+import { Dispatch } from 'redux'
 
 interface Props {
   breed: Breed,
-  parent?: Breed
+  parent?: Breed,
+  setBreed(breed:Breed): void 
 }
 
-const Item = ({ breed, parent }:Props) => {
+const Item = ({ breed, parent, setBreed }:Props) => {
+
   return (
     <ListGroupItem className="d-flex align-items-center justify-content-between">
       <div>
@@ -21,14 +25,22 @@ const Item = ({ breed, parent }:Props) => {
         <span>{breed.name}</span>
       </div>
       <div>
-        <Button><EyeFill /></Button>{' '}
+        <Button onClick={() => {setBreed(breed)}}><EyeFill /></Button>{' '}
         <Button variant="outline-secondary"><StarFill /></Button>
       </div>
     </ListGroupItem>
   )
 } 
 
+const mapDispatchToProps = (dispatch:Dispatch) => {
+  return {
+    setBreed: (breed:Breed) => {
+      dispatch(setSelectedBreed(breed))
+    }
+  }
+}
+
 export const ListItem = connect(
   null,
-  null
+  mapDispatchToProps
 )(Item)

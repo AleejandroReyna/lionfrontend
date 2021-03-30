@@ -8,7 +8,7 @@ interface Action {
   breed: Breed
 }
 
-export function breeds(state = initialState, action:Action) {
+export function favoriteBreed(state = initialState, action:Action) {
   switch(action.type) {
     case SET_FAVORITE_BREED:
       return {...action.breed}

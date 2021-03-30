@@ -16,7 +16,7 @@ interface HeaderProps {
 
 const BackHeader:FC<HeaderProps> = ({user}:HeaderProps) => (
   <Navbar bg="light" expand="lg">
-    <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+    <Navbar.Brand href="#home">Lion Breeds</Navbar.Brand>
     <Nav className="ml-auto">
       {user ?
         <>

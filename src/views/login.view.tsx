@@ -46,21 +46,21 @@ const Login : React.FC<LoginProps> = ( {user, logUser}:LoginProps) => {
   
   return (
     <>
-      {errors &&
-        <ul>
-          {errors.map((error, index) => 
-            <li key={index} >{error.field} - {error.error}</li>  
-          )}
-        </ul>
-      }
       <Container>
         <Row className="justify-content-center">
           <Col xs={12} sm={10} md={8} lg={6}>
-            <Card>
+            <Card className="mt-4">
               <Card.Header className="text-center">
                   Login
               </Card.Header>
               <Card.Body>
+               {errors.length ?
+                  <ul>
+                    {errors.map((error, index) => 
+                      <li key={index} >{error.field} - {error.error}</li>  
+                    )}
+                  </ul>
+                : null }
                 <Form>
                   <FormGroup>
                     <label htmlFor="username">Username: </label>

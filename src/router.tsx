@@ -7,6 +7,7 @@ import {
 import { DashboardScreen } from './views/dashboard.view'
 import { LoginScreen } from './views/login.view'
 import { SignupScreen } from './views/singup.view'
+import { PrivateRoute } from './components/privateRoute'
 
 export const AppRouter = () => (
   <>
@@ -23,9 +24,9 @@ export const AppRouter = () => (
       <Route path="/login/">
         <LoginScreen />
       </Route>
-      <Route exact path="/">
+      <PrivateRoute path="/">
         <DashboardScreen />
-      </Route>
+      </PrivateRoute>
     </Switch>
   </Router>
   </>

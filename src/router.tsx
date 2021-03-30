@@ -11,28 +11,12 @@ import { LoginScreen } from './views/login.view'
 import { SignupScreen } from './views/singup.view'
 import { PrivateRoute } from './components/privateRoute'
 import { OnlyPublicRoute } from './components/onlyPublicRoute'
+import { MainHeader } from './components/mainHeader'
 
-interface State {
-  user: User | null | undefined
-}
 
-interface RouterProps {
-  user?: User | null | undefined
-}
-
-export const MainRouter:FC<RouterProps> = ({user}:RouterProps) => (
-  <>
+export const AppRouter:FC = () => (
   <Router>
-    <ul>
-      {user ?
-        <li><Link to="/">Dashboard</Link></li>
-      :
-        <>
-          <li><Link to="/login/">Login</Link></li>
-          <li><Link to="/signup/">Sign Up</Link></li>
-        </>
-      }
-    </ul>
+    <MainHeader />
     <Switch>
       <OnlyPublicRoute path="/signup/">
         <SignupScreen />
@@ -45,16 +29,4 @@ export const MainRouter:FC<RouterProps> = ({user}:RouterProps) => (
       </PrivateRoute>
     </Switch>
   </Router>
-  </>
 )
-
-const mapStateToProps = (state:State) => {
-  return {
-    user: state.user
-  }
-}
-
-export const AppRouter = connect(
-  mapStateToProps,
-  null
-)(MainRouter)

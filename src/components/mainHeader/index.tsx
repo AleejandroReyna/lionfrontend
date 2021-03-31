@@ -7,6 +7,7 @@ import { User } from '../../services/user.interface'
 import { Navbar, Nav, NavItem, Button } from 'react-bootstrap'
 import { Dispatch } from 'redux'
 import { clearUser } from '../../actions'
+import { EmojiHeartEyesFill } from 'react-bootstrap-icons'
 import './index.css'
 
 interface State {
@@ -31,7 +32,7 @@ const BackHeader:FC<HeaderProps> = ({user, removeUser}:HeaderProps) => {
 
   return (
     <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="#home">Lion Breeds</Navbar.Brand>
+      <Navbar.Brand >< EmojiHeartEyesFill />{' '}Lion Breeds</Navbar.Brand>
       <Nav className="ml-auto custom-navbar">
         {user ?
           <>

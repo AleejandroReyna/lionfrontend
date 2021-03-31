@@ -5,7 +5,7 @@ interface Response {
   parent: string | null
 }
 
-export const getFavoriteBreedSerice = async ():Promise<Response | Errors> => {
+export const getFavoriteBreedService = async ():Promise<Response | Errors> => {
   try {
     const token = localStorage.getItem("token")
     let request = await fetch(`${process.env.REACT_APP_GET_FAVORITE_URL}`, {
@@ -16,7 +16,6 @@ export const getFavoriteBreedSerice = async ():Promise<Response | Errors> => {
       }
     })
     const response:Response | Errors = await request.json()
-    console.log(response)
     return response
   }catch(e) {
     return {errors: [{error: `${e}`, field: ""}]}

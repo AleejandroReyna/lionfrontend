@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ListGroupItem, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { Breed } from '../../services/breed.interface'
 import {EyeFill, StarFill, ArrowRight, CaretDownFill, CaretUpFill } from 'react-bootstrap-icons'
 import { setSelectedBreed, setParentSelectedBreed, clearParentSelectedBreed } from '../../actions'
+import { setFavoriteBreedService } from '../../services/setFavoriteBreed.service'
 import { Dispatch } from 'redux'
 
 interface Props {
@@ -16,7 +17,13 @@ interface Props {
   toggleSubs?(): void 
 }
 
+interface favoriteParams {
+  breed: string,
+  parent: string | null
+}
+
 const Item = ({ breed, parent, setBreed, setParent, clearParent, showSubs, toggleSubs }:Props) => {
+  const [settingFavorite, setSettingFavorite] = useState<boolean>(false) 
 
   const viewBreed = () => {
     setBreed(breed)
@@ -25,6 +32,19 @@ const Item = ({ breed, parent, setBreed, setParent, clearParent, showSubs, toggl
     } else {
       clearParent()
     }
+  }
+
+  const applyFavorite = async () => {
+    setSettingFavorite(true)
+    let params:favoriteParams = {breed: breed.name, parent: null}
+    if(parent) {
+      params.parent = parent.name
+    }
+    let request = await setFavoriteBreedService(params)
+    if("id" in request) {
+      //change favorite redux state here
+    }
+    setSettingFavorite(false)
   }
 
   return (
@@ -43,7 +63,7 @@ const Item = ({ breed, parent, setBreed, setParent, clearParent, showSubs, toggl
       </div>
       <div>
         <Button onClick={viewBreed}><EyeFill /></Button>{' '}
-        <Button variant="outline-secondary"><StarFill /></Button>
+        <Button variant="outline-secondary" onClick={applyFavorite} disabled={settingFavorite}><StarFill /></Button>
       </div>
     </ListGroupItem>
   )

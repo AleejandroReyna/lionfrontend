@@ -1,5 +1,14 @@
 .sidebar-card {
-  height: auto;
-  max-height: calc(100vh - 150px);
+  height: calc(100vh - 150px);
+  overflow-y: hidden;
+}
+
+.card-body {
+  height: 100%;
+}
+
+.list-group-container {
   overflow-y: scroll;
+  margin-top: 1em;
+  height: calc(100vh - 250px)
 }

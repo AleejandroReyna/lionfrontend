@@ -7,6 +7,7 @@ import { getBreedsService } from '../services/getBreeds.service'
 import {Container, Row, Col} from 'react-bootstrap'
 import { DashboardSidebar } from '../components/dashboardSidebar'
 import { BreedInfo } from '../components/breedInfo'
+import { BreedSlider } from '../components/breedSlider'
 
 interface State {
   breeds: Breed[] | null | undefined,
@@ -27,7 +28,7 @@ const Dashboard:FC<DashboardProps> = ({insertBreeds, breeds, favoriteBreed }:Das
       if(!breeds && loading) {
         let request = await getBreedsService()
         if("errors" in request) {
-          console.log("errors here")
+          console.log(request)
         } else {
           insertBreeds(request)
         }
@@ -44,6 +45,7 @@ const Dashboard:FC<DashboardProps> = ({insertBreeds, breeds, favoriteBreed }:Das
         </Col>
         <Col xs={8}>
           <BreedInfo />
+          <BreedSlider />
         </Col>
       </Row>
     </Container>

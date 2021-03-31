@@ -7,43 +7,50 @@ import { breedImagesService } from '../../services/breedImages.service'
 
 interface State {
   selectedBreed: Breed,
-  parentSelectedBreed: Breed
+  parentSelectedBreed: Breed,
+  favoriteBreed: Breed,
+  parentFavoriteBreed: Breed
 }
 
 interface Props {
   selectedBreed?: Breed,
-  parentSelectedBreed?: Breed
+  parentSelectedBreed?: Breed,
+  favoriteBreed?: Breed,
+  parentFavoriteBreed?: Breed
 }
-
 
 interface Params {
   breed: string,
   parent: string | null
 }
 
-const PureSlider = ({selectedBreed, parentSelectedBreed}:Props) => {
+const PureSlider = ({selectedBreed, parentSelectedBreed, favoriteBreed, parentFavoriteBreed}:Props) => {
   const [images, setImages] = useState<string[]>([])
   const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
-    if(selectedBreed) {
+    if(selectedBreed || favoriteBreed) {
+      let params:Params = {breed: "", parent: null}
+      if(favoriteBreed){params.breed = favoriteBreed.name}
+      if(parentFavoriteBreed){params.parent = parentFavoriteBreed.name}
+      if(selectedBreed){params.breed = selectedBreed.name}
+      if(parentSelectedBreed){params.parent = parentSelectedBreed.name} else {params.parent = null}
+      console.log(params)
       const fetchImages = async () => {
         setLoading(true)
-        let params:Params = {breed: selectedBreed.name, parent: null}
-        if(parentSelectedBreed) {
-          params.parent = parentSelectedBreed.name
-        }
+        console.log(params)
         const data = await breedImagesService(params)
         if(!("errors" in data)) {
           setImages(data)
+          setLoading(false)
         }
         setLoading(false)
       }
       fetchImages()
     }
-  }, [selectedBreed])
+  }, [selectedBreed || favoriteBreed])
 
-  if(selectedBreed) {
+  if(selectedBreed || favoriteBreed) {
 
     return (
       <Container>
@@ -83,7 +90,9 @@ const PureSlider = ({selectedBreed, parentSelectedBreed}:Props) => {
 const mapStateToProps = (state:State) => {
   return {
     selectedBreed: state.selectedBreed,
-    parentSelectedBreed: state.parentSelectedBreed
+    parentSelectedBreed: state.parentSelectedBreed,
+    favoriteBreed: state.favoriteBreed,
+    parentFavoriteBreed: state.parentFavoriteBreed
   }
 }
 

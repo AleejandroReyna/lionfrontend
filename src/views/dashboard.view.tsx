@@ -69,10 +69,10 @@ const Dashboard:FC<DashboardProps> = ({insertBreeds, breeds, favoriteBreed, setF
   return (
     <Container fluid>
       <Row>
-        <Col xs={12} md={5} lg={4}>
+        <Col xs={{span: 12, order: 'last'}} md={{span: 5, order: 'first'}} lg={4}>
           <DashboardSidebar />
         </Col>
-        <Col xs={12} md={7} lg={8}>
+        <Col xs={{span: 12, order: 'first'}} md={{span: 7, order: 'last'}} lg={8}>
           <BreedInfo />
           <BreedSlider />
         </Col>

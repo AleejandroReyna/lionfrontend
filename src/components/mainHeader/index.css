@@ -1,0 +1,8 @@
+.custom-navbar {
+  flex-direction: row !important;
+}
+
+.custom-navbar .nav-link {
+  padding-right: .5rem !important;
+  padding-left: .5rem !important;
+}

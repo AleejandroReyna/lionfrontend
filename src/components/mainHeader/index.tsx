@@ -7,6 +7,7 @@ import { User } from '../../services/user.interface'
 import { Navbar, Nav, NavItem, Button } from 'react-bootstrap'
 import { Dispatch } from 'redux'
 import { clearUser } from '../../actions'
+import './index.css'
 
 interface State {
   user: User | null | undefined
@@ -31,7 +32,7 @@ const BackHeader:FC<HeaderProps> = ({user, removeUser}:HeaderProps) => {
   return (
     <Navbar bg="light" expand="lg">
       <Navbar.Brand href="#home">Lion Breeds</Navbar.Brand>
-      <Nav className="ml-auto">
+      <Nav className="ml-auto custom-navbar">
         {user ?
           <>
               <NavItem>

@@ -1,7 +1,7 @@
 import { Breed } from '../services/breed.interface'
 import { SET_BREEDS } from '../actions'
 
-const initialState: Breed[] | undefined | null = null
+const initialState: Breed[] | null = null
 
 interface Action {
   type: string,

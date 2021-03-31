@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { getBreedsService } from '../services/getBreeds.service'
 import {Container, Row, Col} from 'react-bootstrap'
 import { DashboardSidebar } from '../components/dashboardSidebar'
+import { BreedInfo } from '../components/breedInfo'
 
 interface State {
   breeds: Breed[] | null | undefined,
@@ -40,6 +41,9 @@ const Dashboard:FC<DashboardProps> = ({insertBreeds, breeds, favoriteBreed }:Das
       <Row>
         <Col xs={4}>
           <DashboardSidebar />
+        </Col>
+        <Col xs={8}>
+          <BreedInfo />
         </Col>
       </Row>
     </Container>

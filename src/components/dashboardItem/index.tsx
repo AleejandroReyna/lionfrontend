@@ -6,13 +6,12 @@ interface Props {
 }
 
 export const DashboardItem = ({breed} : Props) => {
-  console.log(breed.subBreeds)
   return (
     <>
       <ListItem breed={breed} />
       {breed.subBreeds &&
         breed.subBreeds.map(subBreed => 
-          <ListItem breed={subBreed} parent={breed} />
+          <ListItem breed={subBreed} parent={breed} key={subBreed.name} />
         )
       }
     </>

@@ -1,6 +1,5 @@
 import React, {FC, useState, useEffect} from 'react'
 import { Breed } from '../../services/breed.interface'
-import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { Card, Spinner, ListGroup } from 'react-bootstrap'
 import {DashboardItem } from '../dashboardItem'

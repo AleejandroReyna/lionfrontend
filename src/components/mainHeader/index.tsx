@@ -1,45 +1,60 @@
 import React, { FC } from 'react'
 import {
-  Link
+  Link, useHistory
 } from "react-router-dom"
 import { connect } from 'react-redux'
 import { User } from '../../services/user.interface'
-import { Navbar, Nav, NavItem } from 'react-bootstrap'
+import { Navbar, Nav, NavItem, Button } from 'react-bootstrap'
+import { Dispatch } from 'redux'
+import { clearUser } from '../../actions'
 
 interface State {
   user: User | null | undefined
 }
 
 interface HeaderProps {
-  user?: User | null | undefined
+  user?: User | null | undefined,
+  removeUser?(): void
 }
 
-const BackHeader:FC<HeaderProps> = ({user}:HeaderProps) => (
-  <Navbar bg="light" expand="lg">
-    <Navbar.Brand href="#home">Lion Breeds</Navbar.Brand>
-    <Nav className="ml-auto">
-      {user ?
-        <>
-            <NavItem>
-                <Link to="/" className="nav-link">Dashboard</Link>
-            </NavItem>
-            <NavItem>
-                <Link to="/" className="nav-link">Logout</Link>
-            </NavItem>
-        </>
-    :   
-        <>
-            <NavItem>
-                <Link to="/login/" className="nav-link">Login</Link>
-            </NavItem>
-            <NavItem>
-                <Link to="/signup/" className="nav-link">Singup</Link>
-            </NavItem>
-        </>
-      }
-    </Nav>
-  </Navbar>
-)
+const BackHeader:FC<HeaderProps> = ({user, removeUser}:HeaderProps) => {
+  const history = useHistory()
+
+  const logout = () => {
+    if(removeUser) {
+      localStorage.clear()
+      removeUser()
+      history.push('login')
+    }
+  }
+
+  return (
+    <Navbar bg="light" expand="lg">
+      <Navbar.Brand href="#home">Lion Breeds</Navbar.Brand>
+      <Nav className="ml-auto">
+        {user ?
+          <>
+              <NavItem>
+                  <Link to="/" className="nav-link">Dashboard</Link>
+              </NavItem>
+              <NavItem>
+                  <Button variant="outline-secondary" onClick={logout}>Logout</Button>
+              </NavItem>
+          </>
+      :   
+          <>
+              <NavItem>
+                  <Link to="/login/" className="nav-link">Login</Link>
+              </NavItem>
+              <NavItem>
+                  <Link to="/signup/" className="nav-link">Singup</Link>
+              </NavItem>
+          </>
+        }
+      </Nav>
+    </Navbar>
+  )
+}
 
 const mapStateToProps = (state:State) => {
   return {
@@ -47,9 +62,17 @@ const mapStateToProps = (state:State) => {
   }
 }
 
+const mapDispatchToProps = (dispatch:Dispatch) => {
+  return {
+    removeUser: () => {
+      dispatch(clearUser())
+    }
+  }
+}
+
 export const MainHeader = connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(BackHeader)
 
 export default BackHeader

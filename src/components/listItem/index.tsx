@@ -3,16 +3,27 @@ import { ListGroupItem, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { Breed } from '../../services/breed.interface'
 import {EyeFill, StarFill, ArrowRight } from 'react-bootstrap-icons'
-import { setSelectedBreed } from '../../actions'
+import { setSelectedBreed, setParentSelectedBreed, clearParentSelectedBreed } from '../../actions'
 import { Dispatch } from 'redux'
 
 interface Props {
   breed: Breed,
   parent?: Breed,
-  setBreed(breed:Breed): void 
+  setBreed(breed:Breed): void,
+  setParent(breed:Breed): void,
+  clearParent(): void
 }
 
-const Item = ({ breed, parent, setBreed }:Props) => {
+const Item = ({ breed, parent, setBreed, setParent, clearParent }:Props) => {
+
+  const viewBreed = () => {
+    setBreed(breed)
+    if(parent) {
+      setParent(parent)
+    } else {
+      clearParent()
+    }
+  }
 
   return (
     <ListGroupItem className="d-flex align-items-center justify-content-between">
@@ -25,7 +36,7 @@ const Item = ({ breed, parent, setBreed }:Props) => {
         <span>{breed.name}</span>
       </div>
       <div>
-        <Button onClick={() => {setBreed(breed)}}><EyeFill /></Button>{' '}
+        <Button onClick={viewBreed}><EyeFill /></Button>{' '}
         <Button variant="outline-secondary"><StarFill /></Button>
       </div>
     </ListGroupItem>
@@ -36,6 +47,12 @@ const mapDispatchToProps = (dispatch:Dispatch) => {
   return {
     setBreed: (breed:Breed) => {
       dispatch(setSelectedBreed(breed))
+    },
+    setParent: (breed:Breed) => {
+      dispatch(setParentSelectedBreed(breed))
+    },
+    clearParent: () => {
+      dispatch(clearParentSelectedBreed())
     }
   }
 }

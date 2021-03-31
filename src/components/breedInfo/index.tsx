@@ -23,10 +23,10 @@ const Info = ({selectedBreed, parentSelectedBreed, favoriteBreed, parentFavorite
   
   if(selectedBreed || favoriteBreed) {
     return (
-      <Container>
+      <Container fluid >
         <Row>
           {favoriteBreed &&
-            <Col xs={4}>
+            <Col xs={6} sm={4} md={6} lg={4}>
               <Card className="mt-4">
                 <Card.Body>
                   <small><StarFill color="gold" /> Favorite Breed:</small>
@@ -40,7 +40,7 @@ const Info = ({selectedBreed, parentSelectedBreed, favoriteBreed, parentFavorite
             </Col>
           }
           {parentSelectedBreed &&
-            <Col xs={4}>
+            <Col xs={6} sm={4} md={6} lg={4}>
               <Card className="mt-4">
                 <Card.Body>
                   <small>Parent Breed:</small>
@@ -50,7 +50,7 @@ const Info = ({selectedBreed, parentSelectedBreed, favoriteBreed, parentFavorite
             </Col>
           }
           {selectedBreed &&
-            <Col xs={4}>
+            <Col xs={6} sm={4} md={6} lg={4}>
               <Card className="mt-4">
                 <Card.Body>
                   <small>Selected Breed:</small>

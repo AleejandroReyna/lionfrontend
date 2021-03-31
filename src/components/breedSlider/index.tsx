@@ -53,7 +53,7 @@ const PureSlider = ({selectedBreed, parentSelectedBreed, favoriteBreed, parentFa
   if(selectedBreed || favoriteBreed) {
 
     return (
-      <Container>
+      <Container fluid>
         <Row>
           <Col>
             <Card className="mt-4 carousel-card">

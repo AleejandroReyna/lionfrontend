@@ -2,7 +2,7 @@ import React from 'react'
 import { ListGroupItem, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { Breed } from '../../services/breed.interface'
-import {EyeFill, StarFill, ArrowRight } from 'react-bootstrap-icons'
+import {EyeFill, StarFill, ArrowRight, CaretDownFill, CaretUpFill } from 'react-bootstrap-icons'
 import { setSelectedBreed, setParentSelectedBreed, clearParentSelectedBreed } from '../../actions'
 import { Dispatch } from 'redux'
 
@@ -11,10 +11,12 @@ interface Props {
   parent?: Breed,
   setBreed(breed:Breed): void,
   setParent(breed:Breed): void,
-  clearParent(): void
+  clearParent(): void,
+  showSubs?: boolean,
+  toggleSubs?(): void 
 }
 
-const Item = ({ breed, parent, setBreed, setParent, clearParent }:Props) => {
+const Item = ({ breed, parent, setBreed, setParent, clearParent, showSubs, toggleSubs }:Props) => {
 
   const viewBreed = () => {
     setBreed(breed)
@@ -28,12 +30,16 @@ const Item = ({ breed, parent, setBreed, setParent, clearParent }:Props) => {
   return (
     <ListGroupItem className="d-flex align-items-center justify-content-between">
       <div>
+        {'  '}
         {parent &&
-          <>
-          <span>{parent.name}</span>{' '}<ArrowRight />{' '}
-          </>
+          <ArrowRight />
         }
-        <span>{breed.name}</span>
+        {' '}<span>{breed.name}</span>{' '}
+        {breed.subBreeds &&
+          <Button variant="secondary" onClick={toggleSubs} size="sm">
+            {showSubs ? <CaretUpFill /> : <CaretDownFill /> }
+          </Button>
+        }
       </div>
       <div>
         <Button onClick={viewBreed}><EyeFill /></Button>{' '}

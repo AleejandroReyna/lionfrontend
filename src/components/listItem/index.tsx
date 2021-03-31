@@ -3,9 +3,15 @@ import { ListGroupItem, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { Breed } from '../../services/breed.interface'
 import {EyeFill, StarFill, ArrowRight, CaretDownFill, CaretUpFill } from 'react-bootstrap-icons'
-import { setSelectedBreed, setParentSelectedBreed, clearParentSelectedBreed } from '../../actions'
 import { setFavoriteBreedService } from '../../services/setFavoriteBreed.service'
 import { Dispatch } from 'redux'
+import { 
+  setSelectedBreed, 
+  setParentSelectedBreed, 
+  clearParentSelectedBreed, 
+  setFavoriteBreed, 
+  setParentFavoriteBreed, 
+  clearParentFavoriteBreed } from '../../actions'
 
 interface Props {
   breed: Breed,
@@ -13,6 +19,9 @@ interface Props {
   setBreed(breed:Breed): void,
   setParent(breed:Breed): void,
   clearParent(): void,
+  setFavBreed(breed:Breed): void,
+  setParentFav(breed:Breed): void,
+  clearParentFav(): void,
   showSubs?: boolean,
   toggleSubs?(): void 
 }
@@ -22,7 +31,7 @@ interface favoriteParams {
   parent: string | null
 }
 
-const Item = ({ breed, parent, setBreed, setParent, clearParent, showSubs, toggleSubs }:Props) => {
+const Item = ({ breed, parent, setBreed, setParent, clearParent, showSubs, toggleSubs, setFavBreed, setParentFav, clearParentFav }:Props) => {
   const [settingFavorite, setSettingFavorite] = useState<boolean>(false) 
 
   const viewBreed = () => {
@@ -42,7 +51,12 @@ const Item = ({ breed, parent, setBreed, setParent, clearParent, showSubs, toggl
     }
     let request = await setFavoriteBreedService(params)
     if("id" in request) {
-      //change favorite redux state here
+      setFavBreed(breed)
+      if(parent) {
+        setParentFav(parent)
+      } else {
+        clearParentFav()
+      }
     }
     setSettingFavorite(false)
   }
@@ -79,6 +93,15 @@ const mapDispatchToProps = (dispatch:Dispatch) => {
     },
     clearParent: () => {
       dispatch(clearParentSelectedBreed())
+    },
+    setFavBreed: (breed:Breed) => {
+      dispatch(setFavoriteBreed(breed))
+    },
+    setParentFav: (breed:Breed) => {
+      dispatch(setParentFavoriteBreed(breed))
+    },
+    clearParentFav: () => {
+      dispatch(clearParentFavoriteBreed())
     }
   }
 }
